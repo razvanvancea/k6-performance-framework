@@ -5,6 +5,8 @@ import { randomIntBetween } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
 import { htmlReport } from 'https://raw.githubusercontent.com/benc-uk/k6-reporter/2.4.0/dist/bundle.js';
 import { textSummary } from 'https://jslib.k6.io/k6-summary/0.0.1/index.js';
 
+import { randomEmail, randomString } from '../utils/utils.js';
+
 export const options = {
 	stages: [
 		{ duration: '1s', target: 1 },
@@ -40,37 +42,6 @@ export function handleSummary(data) {
 		stdout: textSummary(data, { indent: ' ', enableColors: true }),
 	};
 }
-
-let randomEmail = () => {
-	var chars = 'abcdefghijklmnopqrstuvwxyz1234567890';
-	var string = '';
-	for (var i = 0; i < 15; i++) {
-		string += chars[Math.floor(Math.random() * chars.length)];
-	}
-	return string + '@gmail.com';
-};
-
-let randomString2 = (length, charset = '') => {
-	if (!charset) charset = 'abcdefghijklmnopqrstuvwxyz';
-	let res = '';
-	while (length--) res += charset[(Math.random() * charset.length) | 0];
-	return res;
-};
-
-// const RANDOM_EMAIL_EXAMPLE = `${randomString2(10)}@example.com`;
-
-let randomString = (length) => {
-	let result = '';
-	const characters =
-		'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	const charactersLength = characters.length;
-	let counter = 0;
-	while (counter < length) {
-		result += characters.charAt(Math.floor(Math.random() * charactersLength));
-		counter += 1;
-	}
-	return result;
-};
 
 const BASE_URL_RV = 'https://qa-practice.netlify.app';
 const REST_API_URL = 'http://localhost:8887';
