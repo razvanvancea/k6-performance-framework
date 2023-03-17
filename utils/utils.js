@@ -7,14 +7,13 @@ export const randomEmail = () => {
 	return string + '@gmail.com';
 };
 
-export const randomString = (length) => {
+export const randomString = (length=1) => {
 	let result = '';
+	let counter = 0;
 	const characters =
 		'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-	const charactersLength = characters.length;
-	let counter = 0;
 	while (counter < length) {
-		result += characters.charAt(Math.floor(Math.random() * charactersLength));
+		result += characters.charAt(Math.floor(Math.random() * characters.length));
 		counter += 1;
 	}
 	return result;
