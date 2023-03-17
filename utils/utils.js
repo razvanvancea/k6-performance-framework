@@ -10,10 +10,10 @@ export const randomEmail = () => {
 export const randomString = (length=1) => {
 	let result = '';
 	let counter = 0;
-	const characters =
+	const chars =
 		'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 	while (counter < length) {
-		result += characters.charAt(Math.floor(Math.random() * characters.length));
+		result += chars.charAt(Math.floor(Math.random() * chars.length));
 		counter += 1;
 	}
 	return result;
