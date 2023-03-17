@@ -1,0 +1,16 @@
+{
+	"name": "rv-k6",
+	"version": "1.0.0",
+	"description": "",
+	"main": "k6.rv.js",
+	"scripts": {
+		"test": "k6 run k6.rv.js",
+		"prettier:check": "npx prettier --check .",
+		"prettier:fix": "npx prettier --write ."
+	},
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"prettier": "^2.8.4"
+	}
+}
