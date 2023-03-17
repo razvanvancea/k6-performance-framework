@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "k6.rv.js",
 	"scripts": {
-		"test": "k6 run k6.rv.js",
+		"test": "k6 run qa-practice.js",
 		"prettier:check": "npx prettier --check .",
 		"prettier:fix": "npx prettier --write ."
 	},
