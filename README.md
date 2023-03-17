@@ -1,4 +1,4 @@
-# Boilerplate project as a starter pack for - K6 - Performance Testing Tool.
+# Boilerplate project - K6 - Performance Testing Tool.
 
 Official Docs: [HERE](https://k6.io/docs/)
 
