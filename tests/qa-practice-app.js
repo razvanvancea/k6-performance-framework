@@ -47,7 +47,7 @@ const FETCH_API_ENDPOINT_RV = new Trend('duration_time_fetch_api_endpoint');
 const REST_API_GET_ALL_EMPLOYEES = new Trend('d_rest_get_all_employees');
 const REST_API_POST_EMPLOYEE = new Trend('d_rest_post_employee');
 
-let SLEEP_TIME = randomIntBetween(0.1, 0.2);
+let SLEEP_TIME = randomIntBetween(0.1, 1);
 
 export default () => {
 	group('QA-Practice landing page', () => {
