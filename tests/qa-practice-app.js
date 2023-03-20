@@ -14,14 +14,8 @@ export const options = {
 		{ duration: '1s', target: 0 },
 	],
 	thresholds: {
-		'http_req_duration{status:200}': ['max>=0'],
-		'http_req_duration{status:499}': ['max>=0'],
-		'http_req_duration{status:502}': ['max>=0'],
-		'http_req_duration{status:503}': ['max>=0'],
-		'http_req_duration{status:504}': ['max>=0'],
-		'http_req_duration{status:500}': ['max>=0'],
-		'http_req_duration{status:501}': ['max>=0'],
-		'http_req_duration{status:404}': ['max>=0'],
+		'http_req_failed': ['rate<0.01'], // http errors should be less than 1%
+		'http_req_duration': ['p(90) < 1000', 'p(95) < 1500', 'p(99.9) < 2000'],
 	},
 	summaryTrendStats: [
 		'avg',
