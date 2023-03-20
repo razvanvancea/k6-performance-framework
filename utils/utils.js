@@ -7,7 +7,7 @@ export const randomEmail = () => {
 	return string + '@gmail.com';
 };
 
-export const randomString = (length=1) => {
+export const randomString = (length = 1) => {
 	let result = '';
 	let counter = 0;
 	const chars =

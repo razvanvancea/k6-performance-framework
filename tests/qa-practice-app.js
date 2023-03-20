@@ -1,6 +1,6 @@
 import http from 'k6/http';
 import { Trend } from 'k6/metrics';
-import { check, group, sleep } from 'k6';
+import { check, fail, group, sleep } from 'k6';
 import { randomIntBetween } from 'https://jslib.k6.io/k6-utils/1.2.0/index.js';
 import { htmlReport } from 'https://raw.githubusercontent.com/benc-uk/k6-reporter/2.4.0/dist/bundle.js';
 import { textSummary } from 'https://jslib.k6.io/k6-summary/0.0.1/index.js';
@@ -14,8 +14,8 @@ export const options = {
 		{ duration: '1s', target: 0 },
 	],
 	thresholds: {
-		'http_req_failed': ['rate<0.01'], // http errors should be less than 1%
-		'http_req_duration': ['p(90) < 1000', 'p(95) < 1500', 'p(99.9) < 2000'],
+		http_req_failed: ['rate<0.01'], // http errors should be less than 1%
+		http_req_duration: ['p(90) < 1000', 'p(95) < 1500', 'p(99.9) < 2000'],
 	},
 	summaryTrendStats: [
 		'avg',
@@ -52,9 +52,15 @@ let SLEEP_TIME = randomIntBetween(0.1, 1);
 export default () => {
 	group('QA-Practice landing page', () => {
 		const res = http.get(`${BASE_URL_RV}`);
-		check(res, {
-			'Assert landing page HTML': (r) => r.body.includes('Welcome!') === true,
+		const checkOutput = check(res, {
+			'Assert landing page HTML - welcome': (r) => r.body.includes('Welcome!'),
+			'Assert landing page HTML - cypress section': (r) =>
+				r.body.includes('Cypress Framework Tutorials - From Zero to Hero'),
 		});
+
+		// if (!checkOutput) {
+		// 	fail('unexpected response');
+		// }
 		LANDING_PAGE_RV.add(res.timings.duration);
 		sleep(SLEEP_TIME);
 	});
@@ -63,11 +69,10 @@ export default () => {
 		const res = http.get(`${BASE_URL_RV}/fetch-api.html`);
 		check(res, {
 			'Assert fetch api page - api requests text': (r) =>
-				r.body.includes('API requests') === true,
+				r.body.includes('API requests'),
 		});
 		check(res, {
-			'Assert fetch api page - Age table header': (r) =>
-				r.body.includes('Age') === true,
+			'Assert fetch api page - Age table header': (r) => r.body.includes('Age'),
 		});
 		FETCH_API_PAGE_RV.add(res.timings.duration);
 		sleep(SLEEP_TIME);
@@ -87,11 +92,9 @@ export default () => {
 			'Assert spot the bugs page HTML - 15 bugs text': (r) =>
 				r.body.includes(
 					'This page contains at least 15 bugs. How many of them can you spot?'
-				) === true,
-		});
-		check(res, {
+				),
 			'Assert spot the bugs page HTML - challenge text': (r) =>
-				r.body.includes('CHALLENGE - Spot the BUGS!') === true,
+				r.body.includes('CHALLENGE - Spot the BUGS!'),
 		});
 		SPOT_BUGS_PAGE_RV.add(res.timings.duration);
 		sleep(SLEEP_TIME);
@@ -103,7 +106,6 @@ export default () => {
 		check(res, {
 			'api resp status code - get all employees': (res) => res.status == 200,
 		});
-		console.log(res);
 		REST_API_GET_ALL_EMPLOYEES.add(res.timings.duration);
 		sleep(SLEEP_TIME);
 

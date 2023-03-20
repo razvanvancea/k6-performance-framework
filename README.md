@@ -3,15 +3,18 @@
 Official Docs: [HERE](https://k6.io/docs/)
 
 ## Prerequisites
+
 - NodeJS
 - k6
 
 ## Installation
+
 ```sh
 npm install
 ```
 
 ## Run Tests via CLI - Linux/MacOS
+
 ```sh
 npm test
 ```
